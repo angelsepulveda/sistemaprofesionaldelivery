@@ -1,6 +1,7 @@
 import express, { Application } from 'express'
 import routerHealth from './helpers/health'
 import HandlerErrors from './helpers/errors'
+import routerCategory from './modules/categories/infrastructure/http/router'
 
 class App {
   readonly expressApp: Application
@@ -8,7 +9,7 @@ class App {
   constructor() {
     this.expressApp = express()
     this.mountHealthCheck()
-    //this.mountRoutes()
+    this.mountRoutes()
     this.mountErrors()
   }
 
@@ -16,7 +17,9 @@ class App {
     this.expressApp.use('/', routerHealth)
   }
 
-  //mountRoutes(): void {}
+  mountRoutes(): void {
+    this.expressApp.use('/category', routerCategory)
+  }
 
   mountErrors(): void {
     this.expressApp.use(HandlerErrors.notFound)
