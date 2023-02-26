@@ -13,7 +13,10 @@
   "author": "angel sepulveda",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "16.0.3",
     "express": "4.18.2",
+    "mysql2": "3.1.2",
+    "sequelize": "6.29.0",
     "uuid": "9.0.0",
     "uuid-validate": "0.0.3"
   },
