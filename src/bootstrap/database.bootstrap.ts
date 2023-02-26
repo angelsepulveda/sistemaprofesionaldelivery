@@ -1,5 +1,6 @@
 import { Bootstrap } from './bootstrap'
 import sequelize from '../modules/shared/infrastructure/db/sequelize.db'
+import { loggerError, loggerInfo } from '../helpers/logger'
 
 export default class extends Bootstrap {
   constructor() {
@@ -9,9 +10,9 @@ export default class extends Bootstrap {
   async initialize(): Promise<string | Error | void> {
     try {
       await sequelize.authenticate()
-      console.log('Connection has been established successfully.')
+      loggerInfo('Connection has been established successfully.')
     } catch (error) {
-      console.error('Unable to connect to the database:', error)
+      loggerError('Unable to connect to the database:', error)
     }
   }
 }

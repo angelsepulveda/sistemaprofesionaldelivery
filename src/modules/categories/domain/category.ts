@@ -1,6 +1,5 @@
 import { Entity } from '../../shared/domain/entity'
-import { CategoryDescription, CategoryId, CategoryName } from './value-objects'
-import { CategoryStatus } from './value-objects/category-status'
+import { CategoryDescription, CategoryId, CategoryName, CategoryStatus } from './value-objects'
 
 interface CategoryRequired {
   name: CategoryName
@@ -18,9 +17,16 @@ type CategoryUpdate = {
   status: CategoryStatus
 }
 
+type CategoryPrimitives = {
+  id: string
+  name: string
+  description: string
+  status: boolean
+}
+
 export type CategoryProperties = Required<CategoryRequired> & Partial<CategoryOptional>
 
-export default class Category implements Entity<CategoryProperties, CategoryUpdate> {
+export default class Category implements Entity<CategoryProperties, CategoryUpdate, CategoryPrimitives> {
   private id: CategoryId
   private name: CategoryName
   private description: CategoryDescription
@@ -39,6 +45,14 @@ export default class Category implements Entity<CategoryProperties, CategoryUpda
     }
   }
 
+  toPrimitives(): CategoryPrimitives {
+    return {
+      id: this.id.value,
+      name: this.name.value,
+      description: this.description.value,
+      status: this.status.value,
+    }
+  }
   update(fields: CategoryUpdate) {
     Object.assign(this, fields)
   }
