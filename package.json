@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "format": "prettier --ignore-path .gitignore node_modules --write .",
-    "lint": "eslint . --ext .{js,ts}",
+    "format": "prettier --ignore-path .gitignore node_modules build --write .",
+    "lint": "eslint . --ext .{js,ts,tsx}",
     "lint:fix": "npx eslint --fix ."
   },
   "keywords": [],

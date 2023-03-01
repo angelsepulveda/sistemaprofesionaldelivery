@@ -1,4 +1,4 @@
-const loggerInfo = (message: any): void => {
+const loggerInfo = (message: unknown): void => {
   console.log(new Date(), message)
 }
 

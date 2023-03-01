@@ -1,17 +1,10 @@
-import * as dotenv from 'dotenv'
-import * as process from 'process'
 import { Sequelize } from 'sequelize'
-dotenv.config()
 
-const database = process.env.DATABASE_NAME
-const username = process.env.DATABASE_USERNAME
-const password = process.env.DATABASE_PASSWORD
-const host = process.env.DATABASE_HOST
-const port = process.env.DATABASE_PORT
+import { databaseEnv } from '../../../../helpers/config'
 
-const sequelize = new Sequelize(database, username, password, {
-  host: host,
-  port: Number(port),
+const sequelize = new Sequelize(databaseEnv.database, databaseEnv.username, databaseEnv.password, {
+  host: databaseEnv.host,
+  port: Number(databaseEnv.port),
   dialect: 'mysql',
 })
 

@@ -1,12 +1,17 @@
 import { Application } from 'express'
 import * as http from 'http'
 
+import { portHost } from '../helpers/config'
 import { loggerError, loggerInfo } from '../helpers/logger'
 import { Bootstrap } from './bootstrap'
 
+
+
 export default class extends Bootstrap {
+  private readonly port: string
   constructor(private readonly app: Application) {
     super()
+    this.port = portHost || '3000'
   }
 
   initialize(): Promise<string | Error> {
@@ -14,10 +19,10 @@ export default class extends Bootstrap {
       const server = http.createServer(this.app)
 
       server
-        .listen(3000)
+        .listen(this.port)
         .on('listening', () => {
           resolve('Promise resolve successfully')
-          loggerInfo('listening on port 3000')
+          loggerInfo(`listening on port http://localhost:${this.port}` )
         })
         .on('error', error => {
           reject(error)
