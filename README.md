@@ -4,7 +4,7 @@
 
 ## Descripción del Proyecto
 
-ApiRest para para gestión de procesos de negocio en la Almacén - Ventas -  Delivery en Supermercados y Locales Comerciales
+ApiRest para la gestión de procesos de negocio en la Almacén - Ventas -  Delivery en Supermercados y Locales Comerciales
 
 ## Ejecutar en desarrollo
 

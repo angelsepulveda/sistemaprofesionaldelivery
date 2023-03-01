@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { inject, injectable } from 'inversify'
 
-import { CategoryCreator } from '../../../../application/use-cases/category-creator'
+import { CategoryCreator } from '../../../../application/use-cases'
 
 @injectable()
 export class CategoryCreatorPostController {
