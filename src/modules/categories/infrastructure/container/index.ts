@@ -1,9 +1,13 @@
 import { ContainerModule } from 'inversify'
 
-import { CategoryCreator,CategoryLister } from '../../application/use-cases'
+import { CategoryCreator, CategoryFinder, CategoryLister } from '../../application/use-cases'
 import { CategoryRepository } from '../../domain/category.repository'
 import CategorySequelizeRepository from '../db/category-sequelize.repository'
-import { CategoryCreatorPostController, CategoryListerGetController } from '../http/controllers'
+import {
+  CategoryCreatorPostController,
+  CategoryFinderGetController,
+  CategoryListerGetController,
+} from '../http/controllers'
 
 //registro de dependencias
 export const CategoryContainer = new ContainerModule(bind => {
@@ -12,4 +16,6 @@ export const CategoryContainer = new ContainerModule(bind => {
   bind<CategoryCreatorPostController>(CategoryCreatorPostController).toSelf()
   bind<CategoryLister>(CategoryLister).toSelf()
   bind<CategoryListerGetController>(CategoryListerGetController).toSelf()
+  bind<CategoryFinder>(CategoryFinder).toSelf()
+  bind<CategoryFinderGetController>(CategoryFinderGetController).toSelf()
 })
