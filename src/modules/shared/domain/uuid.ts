@@ -1,7 +1,8 @@
-import ValueObject from './value-object'
 import { v4 as uuid } from 'uuid'
 import validate from 'uuid-validate'
+
 import InvalidArgumentError from './invalid-argument.error'
+import ValueObject from './value-object'
 
 export default class Uuid extends ValueObject<string> {
   constructor(value: string) {

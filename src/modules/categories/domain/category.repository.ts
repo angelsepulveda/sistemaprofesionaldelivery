@@ -1,5 +1,5 @@
-import Category from './category'
 import { Nullable } from '../../shared/domain/nullable'
+import Category from './category'
 import { CategoryId } from './value-objects'
 
 export interface CategoryRepository {

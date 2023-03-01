@@ -1,5 +1,5 @@
-import { CategoryDescription, CategoryId, CategoryName, CategoryStatus } from './value-objects'
 import Category, { CategoryProperties } from './category'
+import { CategoryDescription, CategoryId, CategoryName, CategoryStatus } from './value-objects'
 
 export default class CategoryFactory {
   static create(

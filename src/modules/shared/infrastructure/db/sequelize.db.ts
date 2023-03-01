@@ -1,7 +1,6 @@
-import { Sequelize } from 'sequelize'
-
 import * as dotenv from 'dotenv'
 import * as process from 'process'
+import { Sequelize } from 'sequelize'
 dotenv.config()
 
 const database = process.env.DATABASE_NAME

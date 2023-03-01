@@ -1,10 +1,11 @@
-import { CategoryRepository } from '../../../domain/category.repository'
-import CategoryFactory from '../../../domain/category.factory'
+import { inject,injectable } from 'inversify'
+
 import Uuid from '../../../../shared/domain/uuid'
+import CategoryFactory from '../../../domain/category.factory'
+import { CategoryRepository } from '../../../domain/category.repository'
 import { CategoryDescription, CategoryName, CategoryStatus } from '../../../domain/value-objects'
 
 interface CategoryRequired {
-  id: string
   name: string
   status: boolean
 }
@@ -13,10 +14,12 @@ interface CategoryOptional {
   description: string
 }
 
-export type CategoryResponse = Required<CategoryRequired> & Partial<CategoryOptional>
-export type CategoryRequest = Required<CategoryRequired> & Partial<CategoryOptional>
+type CategoryResponse = Required<CategoryRequired> & Partial<CategoryOptional>
+type CategoryRequest = Required<CategoryRequired> & Partial<CategoryOptional>
+
+@injectable()
 export class CategoryCreator {
-  constructor(private readonly categoryRepository: CategoryRepository) {}
+  constructor(@inject('CategoryRepository') private readonly categoryRepository: CategoryRepository) {}
 
   async handle(request: CategoryRequest): Promise<CategoryResponse> {
     const category = CategoryFactory.create(

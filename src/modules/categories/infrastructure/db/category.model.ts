@@ -1,4 +1,5 @@
 import { DataTypes, Model } from 'sequelize'
+
 import sequelize from '../../../shared/infrastructure/db/sequelize.db'
 
 interface CategoryAttributes {
@@ -56,6 +57,7 @@ CategoryModel.init(
   {
     sequelize,
     tableName: 'categories',
+    timestamps: false,
   },
 )
 

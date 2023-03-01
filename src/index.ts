@@ -1,7 +1,7 @@
-import ServerBootstrap from './bootstrap/server.bootstrap'
 import Application from './app'
 import { Bootstrap } from './bootstrap/bootstrap'
 import DatabaseBootstrap from './bootstrap/database.bootstrap'
+import ServerBootstrap from './bootstrap/server.bootstrap'
 import { loggerError, loggerInfo } from './helpers/logger'
 
 const serverBootstrap: Bootstrap = new ServerBootstrap(Application)

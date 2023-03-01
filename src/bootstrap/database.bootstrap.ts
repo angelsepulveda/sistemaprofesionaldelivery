@@ -1,6 +1,6 @@
-import { Bootstrap } from './bootstrap'
-import sequelize from '../modules/shared/infrastructure/db/sequelize.db'
 import { loggerError, loggerInfo } from '../helpers/logger'
+import sequelize from '../modules/shared/infrastructure/db/sequelize.db'
+import { Bootstrap } from './bootstrap'
 
 export default class extends Bootstrap {
   constructor() {

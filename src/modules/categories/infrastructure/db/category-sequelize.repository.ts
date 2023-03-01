@@ -1,10 +1,13 @@
-import { CategoryRepository } from '../../domain/category.repository'
-import Category from '../../domain/category'
-import { CategoryModel } from './category.model'
-import { CategoryId, CategoryName, CategoryDescription, CategoryStatus } from '../../domain/value-objects'
-import { Nullable } from '../../../shared/domain/nullable'
-import CategoryFactory from '../../domain/category.factory'
+import { injectable } from 'inversify'
 
+import { Nullable } from '../../../shared/domain/nullable'
+import Category from '../../domain/category'
+import CategoryFactory from '../../domain/category.factory'
+import { CategoryRepository } from '../../domain/category.repository'
+import { CategoryDescription, CategoryId, CategoryName, CategoryStatus } from '../../domain/value-objects'
+import { CategoryModel } from './category.model'
+
+@injectable()
 export default class CategorySequelizeRepository implements CategoryRepository {
   async list(): Promise<Category[]> {
     const categories = await CategoryModel.findAll()
