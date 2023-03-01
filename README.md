@@ -4,7 +4,7 @@
 
 ## Descripción del Proyecto
 
-ApiRest para para gestión de procesos de negocio en la Almacén - Ventas -  Delivery en Supermercados de diferentes rubros
+ApiRest para para gestión de procesos de negocio en la Almacén - Ventas -  Delivery en Supermercados y Locales Comerciales
 
 ## Ejecutar en desarrollo
 
@@ -20,12 +20,12 @@ yarn
 ```
 yarn run dev
 ```
-## Arquitectura de la aplicación y Patrones de diseño
+## Arquitectura y Patrones de Diseño de la Aplicación
 
 - Arquitectura Hexagonal
 - DDD (Domain - Driver -Design)
 - Principios Solid
-- Patron Repositorio
+- Patrón Repositorio
 - DIP
 
 ## Stack de Desarrollo
