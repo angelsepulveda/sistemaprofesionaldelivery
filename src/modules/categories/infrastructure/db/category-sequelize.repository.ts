@@ -53,4 +53,16 @@ export default class CategorySequelizeRepository implements CategoryRepository {
 
     return category
   }
+
+  async findByName(name: CategoryName): Promise<Nullable<Category>> {
+    const category = await CategoryModel.findOne({
+      where: { name: name.value },
+    });
+
+    if(category !== null) {
+      return CategoryFactory.create(new CategoryId(category.id),new CategoryName(category.name), new CategoryDescription(category.description), new CategoryStatus(category.status))
+    }
+
+    return null
+  }
 }
