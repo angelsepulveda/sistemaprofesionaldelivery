@@ -10,8 +10,8 @@ export class ExistCategoryByName {
   async handle(name: CategoryName): Promise<boolean> {
 
     const result = await this.categoryRepository.findByName(name)
-
-    return result === null;
+    
+    return result !== null;
 
   }
 }

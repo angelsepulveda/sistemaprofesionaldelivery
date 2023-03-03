@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { inject, injectable } from 'inversify'
 
 import { CategoryCreator } from '../../../../application/use-cases'
@@ -7,15 +7,21 @@ import { CategoryCreator } from '../../../../application/use-cases'
 export class CategoryCreatorPostController {
   constructor(@inject(CategoryCreator) private readonly categoryCreator: CategoryCreator) {}
 
-  async handle(req: Request, res: Response): Promise<void> {
-    const { name, description, status } = req.body
+  async handle(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try{
 
-    await this.categoryCreator.handle({
-      name,
-      description,
-      status,
-    })
+      const { name, description, status } = req.body
 
-    res.status(201).send()
+      await this.categoryCreator.handle({
+        name,
+        description,
+        status,
+      })
+
+      res.status(201).send()
+
+    }catch (e){
+      next(e)
+    }
   }
 }

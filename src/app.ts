@@ -5,6 +5,7 @@ import express, { Application } from 'express'
 import HandlerErrors from './helpers/errors'
 import routerHealth from './helpers/health'
 import routerCategory from './modules/categories/infrastructure/http/router'
+import errorHandler from './modules/shared/infrastructure/http/middlewares/error-handler'
 
 class App {
   readonly expressApp: Application
@@ -31,6 +32,7 @@ class App {
 
   mountErrors(): void {
     this.expressApp.use(HandlerErrors.notFound)
+    this.expressApp.use(errorHandler)
   }
 }
 

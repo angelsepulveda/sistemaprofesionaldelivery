@@ -25,7 +25,7 @@ export class CategoryCreator {
               @inject(ExistCategoryByName) private readonly existCategoryByName: ExistCategoryByName) {}
 
   async handle(request: CategoryRequest): Promise<CategoryResponse> {
-    const categoryExist = this.existCategoryByName.handle(new CategoryName(request.name))
+    const categoryExist = await this.existCategoryByName.handle(new CategoryName(request.name))
 
     if(categoryExist){
       throw new CategoryAlreadyExistsException()

@@ -1,4 +1,5 @@
 import { injectable } from 'inversify'
+import { Op } from 'sequelize'
 
 import { Nullable } from '../../../shared/domain/nullable'
 import Category from '../../domain/category'
@@ -56,7 +57,7 @@ export default class CategorySequelizeRepository implements CategoryRepository {
 
   async findByName(name: CategoryName): Promise<Nullable<Category>> {
     const category = await CategoryModel.findOne({
-      where: { name: name.value },
+      where: { name: { [Op.like]: `%${name.value}%`}},
     });
 
     if(category !== null) {

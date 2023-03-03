@@ -1,5 +1,6 @@
 import { ContainerModule } from 'inversify'
 
+import { ExistCategoryByName } from '../../application/services'
 import { CategoryCreator, CategoryFinder, CategoryLister } from '../../application/use-cases'
 import { CategoryRepository } from '../../domain/category.repository'
 import CategorySequelizeRepository from '../db/category-sequelize.repository'
@@ -18,4 +19,5 @@ export const CategoryContainer = new ContainerModule(bind => {
   bind<CategoryListerGetController>(CategoryListerGetController).toSelf()
   bind<CategoryFinder>(CategoryFinder).toSelf()
   bind<CategoryFinderGetController>(CategoryFinderGetController).toSelf()
+  bind<ExistCategoryByName>(ExistCategoryByName).toSelf()
 })
