@@ -1,25 +1,18 @@
-import { inject,injectable } from 'inversify'
+import { inject, injectable } from 'inversify'
 
 import { CategoryRepository } from '../../../domain/category.repository'
-
-interface CategoryRequired {
-  name: string
-  status: boolean
-}
-
-interface CategoryOptional {
-  description: string
-}
-
-type CategoryResponse = Required<CategoryRequired> & Partial<CategoryOptional>
+import { CategoryDto } from '../../../infrastructure/http/dto/response/category.dto'
+import { CategoryListDtoMapping } from '../../../infrastructure/http/dto/response/category.list.dto'
 
 @injectable()
 export class CategoryLister {
-  constructor(@inject('CategoryRepository') private readonly categoryRepository: CategoryRepository) {}
+  constructor(
+    @inject('CategoryRepository') private readonly categoryRepository: CategoryRepository,
+  ) {}
 
-  async handle(): Promise<CategoryResponse[]> {
-    const result = await this.categoryRepository.list()
+  async handle(): Promise<CategoryDto[]> {
+    const category = await this.categoryRepository.list()
 
-    return result.map(data => data.toPrimitives())
+    return new CategoryListDtoMapping().execute(category)
   }
 }

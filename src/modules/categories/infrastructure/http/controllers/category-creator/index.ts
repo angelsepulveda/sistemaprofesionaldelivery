@@ -8,19 +8,17 @@ export class CategoryCreatorPostController {
   constructor(@inject(CategoryCreator) private readonly categoryCreator: CategoryCreator) {}
 
   async handle(req: Request, res: Response, next: NextFunction): Promise<void> {
-    try{
-
+    try {
       const { name, description, status } = req.body
 
-      await this.categoryCreator.handle({
+      const data = await this.categoryCreator.handle({
         name,
         description,
         status,
       })
 
-      res.status(201).send()
-
-    }catch (e){
+      res.status(201).json(data)
+    } catch (e) {
       next(e)
     }
   }
