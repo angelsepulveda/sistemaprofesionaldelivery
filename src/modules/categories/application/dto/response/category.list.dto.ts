@@ -1,5 +1,5 @@
-import { DTO } from '../../../../../shared/infrastructure/http/dto/response/dto'
-import { CategoryProperties } from '../../../../domain/category'
+import { DTO } from '../../../../shared/infrastructure/http/dto/response/dto'
+import { CategoryProperties } from '../../../domain/category'
 import { CategoryDto } from './category.dto'
 
 export type CategoryListDto = CategoryDto[]

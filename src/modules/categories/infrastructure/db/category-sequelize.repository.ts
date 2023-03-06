@@ -51,7 +51,8 @@ export default class CategorySequelizeRepository implements CategoryRepository {
   async update(id: CategoryId, category: Category): Promise<Category> {
     const categoryModel = await CategoryModel.findByPk(id.value)
 
-    if (!categoryModel) {
+    console.log(categoryModel)
+    if (categoryModel === null) {
       throw new Error('Category not found')
     }
 

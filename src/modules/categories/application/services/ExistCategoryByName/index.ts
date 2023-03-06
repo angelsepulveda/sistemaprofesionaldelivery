@@ -1,17 +1,21 @@
-import { inject,injectable } from 'inversify'
+import { inject, injectable } from 'inversify'
 
 import { CategoryRepository } from '../../../domain/category.repository'
-import {  CategoryName } from '../../../domain/value-objects'
+import { CategoryId, CategoryName } from '../../../domain/value-objects'
 
 @injectable()
 export class ExistCategoryByName {
-  constructor(@inject('CategoryRepository') private readonly categoryRepository: CategoryRepository) {}
+  constructor(
+    @inject('CategoryRepository') private readonly categoryRepository: CategoryRepository,
+  ) {}
 
-  async handle(name: CategoryName): Promise<boolean> {
+  async handle(name: CategoryName, id: CategoryId): Promise<boolean> {
+    const category = await this.categoryRepository.findByName(name)
 
-    const result = await this.categoryRepository.findByName(name)
-    
-    return result !== null;
+    if (category !== null) {
+      return category.properties().id.value !== id.value
+    }
 
+    return false
   }
 }

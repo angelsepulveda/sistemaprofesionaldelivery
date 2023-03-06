@@ -1,14 +1,19 @@
 import { inject, injectable } from 'inversify'
 
-import Uuid from '../../../../shared/domain/uuid'
 import CategoryFactory from '../../../domain/category.factory'
 import { CategoryRepository } from '../../../domain/category.repository'
 import { CategoryAlreadyExistsException } from '../../../domain/exceptions'
-import { CategoryDescription, CategoryName, CategoryStatus } from '../../../domain/value-objects'
-import { CategoryCreatorDto, CategoryCreatorDtoMapping } from '../../dto'
+import {
+  CategoryDescription,
+  CategoryId,
+  CategoryName,
+  CategoryStatus,
+} from '../../../domain/value-objects'
+import { CategoryDto, CategoryUpdaterDtoMapping } from '../../dto'
 import { ExistCategoryByName } from '../../services'
 
 interface CategoryRequired {
+  id: string
   name: string
   status: boolean
 }
@@ -20,31 +25,30 @@ interface CategoryOptional {
 type CategoryRequest = Required<CategoryRequired> & Partial<CategoryOptional>
 
 @injectable()
-export class CategoryCreator {
+export class CategoryUpdater {
   constructor(
     @inject('CategoryRepository') private readonly categoryRepository: CategoryRepository,
     @inject(ExistCategoryByName) private readonly existCategoryByName: ExistCategoryByName,
   ) {}
 
-  async handle(request: CategoryRequest): Promise<CategoryCreatorDto> {
-    const category = CategoryFactory.create(
-      Uuid.random(),
-      new CategoryName(request.name),
-      new CategoryDescription(request.description),
-      new CategoryStatus(request.status),
-    )
+  async handle(request: CategoryRequest): Promise<CategoryDto> {
+    const name = new CategoryName(request.name)
+    const id = new CategoryId(request.id)
 
-    const categoryExist = await this.existCategoryByName.handle(
-      category.properties().name,
-      category.properties().id,
-    )
+    const categoryExist = await this.existCategoryByName.handle(name, id)
 
     if (categoryExist) {
       throw new CategoryAlreadyExistsException()
     }
+    const category = CategoryFactory.create(
+      id,
+      name,
+      new CategoryDescription(request.description),
+      new CategoryStatus(request.status),
+    )
 
-    const categoryCreated = await this.categoryRepository.insert(category)
+    const categoryUpdated = await this.categoryRepository.update(category.properties().id, category)
 
-    return new CategoryCreatorDtoMapping().execute(categoryCreated.properties())
+    return new CategoryUpdaterDtoMapping().execute(categoryUpdated.properties())
   }
 }

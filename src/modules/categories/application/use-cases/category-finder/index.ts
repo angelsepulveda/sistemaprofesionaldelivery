@@ -3,8 +3,7 @@ import { inject, injectable } from 'inversify'
 import { Nullable } from '../../../../shared/domain/nullable'
 import { CategoryRepository } from '../../../domain/category.repository'
 import { CategoryId } from '../../../domain/value-objects'
-import { CategoryDto } from '../../../infrastructure/http/dto/response/category.dto'
-import { CategoryFinderDto } from '../../../infrastructure/http/dto/response/category.finder.dto'
+import { CategoryDto, CategoryFinderDtoMapping } from '../../dto'
 
 @injectable()
 export class CategoryFinder {
@@ -16,7 +15,7 @@ export class CategoryFinder {
     const category = await this.categoryRepository.listOne(new CategoryId(id))
 
     if (category !== null) {
-      return new CategoryFinderDto().execute(category.properties())
+      return new CategoryFinderDtoMapping().execute(category.properties())
     }
 
     return null
